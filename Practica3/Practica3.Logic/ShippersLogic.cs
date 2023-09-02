@@ -1,0 +1,56 @@
+﻿using Practica3.Data;
+using Practica3.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Practica3.Logic
+{
+    public class ShippersLogic:BaseLogic,IABMLogic<Shippers>
+    {
+    
+        public List<Shippers> GetAll()
+
+        {
+            return context.Shippers.ToList();
+        }
+
+        public void Add(Shippers newshippers)
+        {
+            context.Shippers.Add(newshippers);
+            context.SaveChanges();
+        }
+
+
+        public void Delete(int id)
+        {
+            //var shippersAEliminar =context.Shippers.First(r => r.ShipperID == id);
+            var shippersAEliminar = context.Shippers.Find(id);
+
+            context.Shippers.Remove(shippersAEliminar);
+
+            context.SaveChanges();
+        }
+
+        public void Update(Shippers shippers)
+        {
+
+                var shippersUpdate = context.Shippers.Find(shippers.ShipperID);
+                if (shippersUpdate != null)
+                {
+
+                    shippersUpdate.CompanyName = shippers.CompanyName;
+                    context.SaveChanges();
+                }
+                else
+                {
+                    throw new ApplicationException($"No se encontró un Shipper con ID {shippers.ShipperID}");
+                }
+            
+         
+        }
+    }
+
+}
