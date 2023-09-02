@@ -28,7 +28,7 @@ namespace Practica3.Logic
         {
             //var shippersAEliminar =context.Shippers.First(r => r.ShipperID == id);
             var shippersAEliminar = context.Shippers.Find(id);
-
+            if (shippersAEliminar.Orders.Count > 0) { throw new ApplicationException("El elemento seleccionado no se puede eliminar por tener ordenes relacionadas"); }
             context.Shippers.Remove(shippersAEliminar);
 
             context.SaveChanges();
