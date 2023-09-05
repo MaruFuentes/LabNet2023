@@ -21,12 +21,19 @@ namespace Practica3
                 {
 
                     Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
-                    Console.WriteLine("1 - Listar todos los Shippers");
-                    Console.WriteLine("2 - Listar todos los Categories");
-                    Console.WriteLine("3 - Agregar un nuevo Shippers");
-                    Console.WriteLine("4 - Actualizar un nuevo Shippers");
-                    Console.WriteLine("5 - Eliminar");
-                    Console.WriteLine("0 - Salir");
+                    Console.WriteLine("1 - Devolver objeto customer");
+                    Console.WriteLine("2 - Devolver todos los productos sin stock ");
+                    Console.WriteLine("3 - Devolver productos con stock y que valen mas de 3");
+                    Console.WriteLine("4 - Devolver Customers de la region WA");
+                    Console.WriteLine("5 - Devolver elemento con ID 789");
+                    Console.WriteLine("6 - Devolver customers en mayusccula y minuscula");
+                    Console.WriteLine("7 _ Devolver customers de region WA con Orders > a 1/1/1997 ");
+                    Console.WriteLine("8 _ Devolver 3 primeros customer de region WA");
+                    Console.WriteLine("9 _ Devolver lista de productos ordenados por nombre");
+                    Console.WriteLine("10 _ Devolver lista de productos en stock ordenados de > a <  ");
+                    Console.WriteLine("11 _ Devolver categorias asociadas a los productos  ");
+                    Console.WriteLine("12 _ Devolver 1er elemento de una lista de productos");
+                    Console.WriteLine("13 _ Devolver customer con la cantidad de ordenes asociadas ");
                     Console.WriteLine("Ingresa una Opcion");
                     opcion = Convert.ToInt32(Console.ReadLine());
 
@@ -34,14 +41,12 @@ namespace Practica3
                     switch (opcion)
                     {
                         case 1:
-                            ShippersLogic shippersLogic = new ShippersLogic();
+                            CustomersLogic customersLogic = new CustomersLogic();
+                            Customers customers = customersLogic.GetFistCustomer();
+                            Console.WriteLine("ID: " + customers.CustomerID);
+                            Console.WriteLine("CompanyName: " + customers.CompanyName);
+                            Console.WriteLine("CotactName: " + customers.ContactName);
 
-                            Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
-                            foreach (Shippers shippers in shippersLogic.GetAll())
-
-                            {
-                                Console.WriteLine($"{shippers.ShipperID} _ {shippers.CompanyName}");
-                            }
 
                             Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
                             break;
@@ -49,13 +54,12 @@ namespace Practica3
                         case 2:
 
                             Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
-                            CategoriesLogic categoriesLogic = new CategoriesLogic();
-
-                            foreach (Categories categories in categoriesLogic.GetAll())
+                            ProductsLogic productsLogic = new ProductsLogic();
+                            foreach (Products item in productsLogic.GetProductsSinStock())
                             {
-                                Console.WriteLine($"{categories.CategoryName} - {categories.Description}");
-
+                                Console.WriteLine("Nombre: " + item.ProductName + " stock: " + item.UnitsInStock);
                             }
+
 
                             Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
                             break;
@@ -63,20 +67,10 @@ namespace Practica3
                         case 3:
 
                             Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
-                            shippersLogic = new ShippersLogic();
-                            Console.WriteLine("Ingrese nombre del conductor");
-                            string nombre = Console.ReadLine();
-                            shippersLogic.Add(new Shippers
+                            productsLogic = new ProductsLogic();
+                            foreach (Products item in productsLogic.GetProductsConStock())
                             {
-                                CompanyName = nombre
-                            });
-
-                            Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
-
-                            foreach (var item in shippersLogic.GetAll())
-
-                            {
-                                Console.WriteLine($"{item.ShipperID} _ {item.CompanyName}");
+                                Console.WriteLine("Nombre: " + item.ProductName + " stock: " + item.UnitsInStock + " Valor: " + item.UnitPrice);
                             }
 
                             Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
@@ -85,25 +79,10 @@ namespace Practica3
                         case 4:
 
                             Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
-                            shippersLogic = new ShippersLogic();
-                            Console.WriteLine("Ingrese el ID del elemento a modificar");
-                            int ID = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine("Ingrese nombre del conductor");
-                            string nombreNuevo = Console.ReadLine();
-                            shippersLogic.Update(new Shippers
+                            customersLogic = new CustomersLogic();
+                            foreach (Customers item in customersLogic.GetCustomersRegionWA())
                             {
-                                CompanyName = nombreNuevo,
-                                ShipperID = ID
-                            });
-
-
-                            Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
-
-
-                            foreach (var item in shippersLogic.GetAll())
-
-                            {
-                                Console.WriteLine($"{item.ShipperID} _ {item.CompanyName}");
+                                Console.WriteLine("Nombre: " + item.CompanyName + " region : " + item.Region);
                             }
 
                             Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
@@ -111,20 +90,87 @@ namespace Practica3
 
                         case 5:
                             Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
-                            shippersLogic = new ShippersLogic();
-                            foreach (var item in shippersLogic.GetAll())
+                            productsLogic = new ProductsLogic();
+                            var elemento = productsLogic.getElement789();
+                            Console.WriteLine(elemento);
 
-                            {
-                                Console.WriteLine($"{item.ShipperID} _ {item.CompanyName}");
-                            }
-                            Console.WriteLine("Ingrese el ID del elemento a eliminar");
-                            ID = Convert.ToInt32(Console.ReadLine());
-                            shippersLogic.Delete(ID);
-                            foreach (var item in shippersLogic.GetAll())
+                            Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
+                            break;
 
+                        case 6:
+                            Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
+                            customersLogic = new CustomersLogic();
+                            var Listado = customersLogic.GetCustomersMayYMin();
+                            foreach (Customers item in Listado)
                             {
-                                Console.WriteLine($"{item.ShipperID} _ {item.CompanyName}");
+                                Console.WriteLine(item.CompanyName.ToUpper());
+                                Console.WriteLine(item.CompanyName.ToLower());
                             }
+                            Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
+                            break;
+
+                        case 7:
+                            Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
+                            customersLogic = new CustomersLogic();
+                            foreach (CustomerDTO item in customersLogic.CustomersOrders())
+                            {
+                                Console.WriteLine("Nombre: " + item.Customer.CompanyName + " Region: " + item.Customer.Region);
+                                Console.WriteLine("Fecha: " + item.Order.OrderDate);
+                                //foreach (Orders item1 in item.Orders)
+                                //{
+                                //    Console.WriteLine("Fecha: " + item1.OrderDate);
+                                //}
+
+                                Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
+                            }
+                            Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
+                            break;
+
+                        case 8:
+                            Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
+                            customersLogic = new CustomersLogic();
+                            foreach (Customers item in customersLogic.FirstThreeRegionWA())
+                            {
+                                Console.WriteLine(" Id: " + item.CustomerID + " region " + item.Region);
+                            }
+                            Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
+                            break;
+
+
+                        case 9:
+                            Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
+                            productsLogic = new ProductsLogic();
+                            foreach (Products item in productsLogic.GetProductOrdenadoNombre())
+                            {
+                                Console.WriteLine(item.ProductName);
+                            }
+                            Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
+                            break;
+
+                        case 10:
+                            Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
+                            productsLogic = new ProductsLogic();
+                            foreach (Products item in productsLogic.GetProductosOrdenadoMayMen())
+                            {
+                                Console.WriteLine("Nombre: "+ item.ProductName + " Unidades en stock: "+item.UnitsInStock);
+                            }
+                            Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
+                            break;
+
+                        case 11:
+                            Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
+
+                            Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
+                            break;
+
+                        case 12:
+                            Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
+
+                            Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
+                            break;
+
+                        case 13:
+                            Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
 
                             Console.WriteLine("::::::::::::::::::::::::::::::::::::::::::::");
                             break;
