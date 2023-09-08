@@ -1,0 +1,24 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #3e8ead;
+}
+
+h1 {
+    color: #333;
+}
+
+input, button {
+    margin: 10px;
+    padding: 5px 10px;
+    font-size: 16px;
+}
+
+#mensaje {
+    font-weight: bold;
+}
+
+#puntaje, #puntaje-maximo {
+    font-weight: bold;
+    color: #ff5733;
+}
