@@ -1,0 +1,50 @@
+﻿@model List<Practica3.MVC.Models.ShippersView>
+
+@{
+    ViewBag.Title = "Shippers Page";
+}
+<h1>Hola soy el index de Shippers</h1>
+@{
+    var errorMessage = TempData["ErrorMessage"] as string; // Obtener el mensaje de TempData
+}
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <script>
+        alert('@errorMessage'); // Mostrar una alerta con el mensaje de error
+    </script>
+}
+<table class="table">
+    <thead>
+        <tr>
+
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scole "col">Actions</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @foreach (var shippers in Model)
+
+        {
+            <tr>
+                <th scope="row">@shippers.Id</th>
+                <td>@shippers.CompanyName</td>
+                <td>
+                    @Html.ActionLink("Borrar", "Delete", new { id = shippers.Id }, new { onclick = "return confirm('¿Está seguro de borrar?')" })
+                    / @Html.ActionLink("Editar", "Update", new { id = shippers.Id })
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+
+</table>
+
+<div>
+    @Html.ActionLink("Insertar Nueva Shippers", "Insert", "Shippers")
+</div>

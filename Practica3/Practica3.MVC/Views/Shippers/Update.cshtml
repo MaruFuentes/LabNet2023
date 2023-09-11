@@ -1,0 +1,16 @@
+﻿@model Practica3.MVC.Models.ShippersView
+
+@{
+    ViewBag.Title = "Shippers Page";
+}
+
+<h1>Vista para Actualizar</h1>
+
+@using (Html.BeginForm("UpDateShipper", "Shippers", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.Id) <!-- Campo oculto para el ID -->
+
+    <label>Nombre de Compañia:</label>
+    @Html.TextBoxFor(model => model.CompanyName)
+    <input type="submit" class="btn btn-success" value="Guardar" />
+}

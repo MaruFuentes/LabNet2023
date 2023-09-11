@@ -34,6 +34,11 @@ namespace Practica3.Logic
             context.SaveChanges();
         }
 
+        public Shippers GetById(int id) {
+            var shiperResult = context.Shippers.Find(id) as Shippers;
+            return shiperResult;
+        }
+
         public void Update(Shippers shippers)
         {
 
