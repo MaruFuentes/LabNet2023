@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="display-1" style="text-align:center; margin-bottom:5rem;">LISTA DE JUEGOS FREE-TO-PLAY</h2>
+
+<div class="card-container">
+
+    @for (int i = 0; i < 90; i++) 
+    {
+        <div class="card" style="width: 36.5rem; height:40rem">
+            <img src="@Model[i].thumbnail" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h3 class="card-title">@Model[i].title</h3>
+                <p class="card-text">@Model[i].short_description</p>
+                <a href="@Model[i].freetogame_profile_url" class="btn btn-primary btn-lg">Ver en la pagina</a>
+            </div>
+        </div>
+    }
+</div>
+
+
+<style>
+    .card-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .card {
+        margin-bottom: 3rem;
+    }
+
+    .display-1 {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    }
+</style>
+
