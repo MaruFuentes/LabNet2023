@@ -4,7 +4,8 @@ namespace Practica3.MVC.Models
 {
     public class ShippersView
     {
-        public int Id { get; set; }
-        public string CompanyName { get; set; }
+        public int ID { get; set; }
+        public string companyName { get; set; }
+        public string phone { get; set; }
     }
 }

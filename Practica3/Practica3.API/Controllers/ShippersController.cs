@@ -5,12 +5,14 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using Practica3.Logic;
 using Practica3.Entities;
 
 
 namespace Practica3.API.Controllers
 {
+    [EnableCors("*", "*", "*")]
     public class ShippersController : ApiController
     {
 
@@ -27,8 +29,9 @@ namespace Practica3.API.Controllers
           
             List<ShippersView> shippersViews = _shippersLogic.GetAll().Select(s => new ShippersView
             {
-                Id = s.ShipperID,
-                CompanyName = s.CompanyName,
+                ID = s.ShipperID,
+                companyName = s.CompanyName,
+                phone = s.Phone,
             }).ToList();
             return shippersViews;
         }
@@ -45,9 +48,9 @@ namespace Practica3.API.Controllers
             }
             ShippersView shippersView = new ShippersView
             {
-                Id = shippers.ShipperID,
-                CompanyName = shippers.CompanyName,
-           
+                ID = shippers.ShipperID,
+                companyName = shippers.CompanyName,
+                phone = shippers.Phone,
             };
 
             return Ok(shippersView);
@@ -55,13 +58,15 @@ namespace Practica3.API.Controllers
         }
 
         // POST api/<controller>
+        [HttpPost]
         public IHttpActionResult Post([FromBody] ShippersView shippers)
         {
             try
             {
                 Shippers _shippers = new Shippers
                 {
-                    CompanyName = shippers.CompanyName
+                    CompanyName = shippers.companyName,
+                    Phone = shippers.phone
 
                 };
                 _shippersLogic.Add(_shippers);
@@ -75,6 +80,7 @@ namespace Practica3.API.Controllers
         }
 
         // PUT api/<controller>/5
+        [HttpPut]
         public IHttpActionResult Put(int id, [FromBody] ShippersView value)
         {
             try
@@ -82,7 +88,8 @@ namespace Practica3.API.Controllers
                 Shippers _shippers = new Shippers
                 {
                     ShipperID = id,
-                    CompanyName = value.CompanyName
+                    CompanyName = value.companyName,
+                    Phone = value.phone
 
                 };
                 _shippersLogic.Update(_shippers);
@@ -96,6 +103,7 @@ namespace Practica3.API.Controllers
         }
 
         // DELETE api/<controller>/5
+        [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
             try

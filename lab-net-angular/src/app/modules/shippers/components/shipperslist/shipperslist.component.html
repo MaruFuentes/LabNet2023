@@ -1,0 +1,59 @@
+<h2 class="text-center mt-4">Lista de Shippers</h2>
+<div *ngIf="shippersList.length > 0">
+    <div class="row my-4 mx-4">
+        <label class="col-form-label mx-1"><strong>Filtrar por nombre: </strong></label>
+        <div class="col-2">
+            <input class="form-control" [(ngModel)]="filterValue" type="text" placeholder="Buscar..." />
+        </div>
+    </div>
+    <div class="table-responsive px-5">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre de la compañía</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col">Modificar</th>
+                    <th scope="col">Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let shipper of shippersList | filtershipper: filterValue">
+                    <td>{{shipper["companyName"]}}</td>
+                    <td>{{shipper["phone"]}}</td>
+                    <td class="size-td text-center"><a class="nav-link"
+                            routerLink="/shippers/update/{{shipper.ID}}"><fa-icon [icon]="faPen"></fa-icon></a></td>
+                    <td class="cursor-pointer size-td text-center" (click)="openDeleteConfirmation(shipper.ID)"><fa-icon
+                            [icon]="faTrash"></fa-icon></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div *ngIf="shippersList.length == 0" class="my-5">
+    <h3 class="text-center">No se encontraron Shippers, ¿Por qué no creas uno?</h3>
+</div>
+<div>
+    <p class="text-danger text-center">{{message}}</p>
+    <div class="mt-4 d-flex justify-content-center ">
+        <button class="btn btn-outline-primary"><a class="nav-link " routerLink="/shippers/create">Crear un
+                Shipper</a></button>
+    </div>
+</div>
+
+<div *ngIf="idToDelete != undefined">
+    <div class="modal d-block" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalShipper">Eliminar Shipper</h5>
+                    <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">¿Estás seguro de querer eliminar el Shipper?</div>
+                <div class="modal-footer">
+                    <button type="button" (click)="closeDeleteConfirmation()" class="btn btn-secondary">Cancelar</button>
+                    <button type="button" (click)="delete(idToDelete)" class="btn btn-primary">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

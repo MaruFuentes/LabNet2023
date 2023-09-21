@@ -1,0 +1,38 @@
+<button class="btn btn-outline-primary mt-4 mx-4"><a class="nav-link " routerLink="/shippers">Ir a lista de Shippers</a></button>
+<h2 class="text-center mt-2">Crear Shipper</h2>
+    <form [formGroup]="shipperForm" (ngSubmit)="onSubmit()">
+        <div class="row d-flex justify-content-center">
+            <div class="col-6">
+                <div class=" mt-2 mb-3">
+                    <span for="companyName" class="form-label"><strong>Ingrese el nombre de la compañia: </strong></span>
+                    <input type="text" formControlName="companyName" class="form-control mt-3" id="companyName" placeholder="Ingrese nombre de la compañia">
+                    <div *ngIf="submitted && validatorArray.companyName.errors" class="text-danger">
+                        <span *ngIf="validatorArray.companyName.errors.required">Campo obligatorio</span>
+                        <span *ngIf="validatorArray.companyName.errors.maxlength">Supero el maximo de caracteres</span>
+                        <span *ngIf="validatorArray.companyName.errors.minlength">No cuenta con el minimo de caracteres</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center mt-3" >
+            <div class="col-6">
+                <div class="mb-3">
+                    <span for="phone" class="form-label"><strong>Ingrese el número de teléfono: </strong></span>
+                    <input type="text" formControlName="phone" class="form-control mt-3" id="phone" placeholder="Ingrese el número de teléfono">
+                    <div *ngIf="submitted && validatorArray.phone.errors" class="text-danger">
+                        <span *ngIf="validatorArray.phone.errors.required">Campo obligatorio</span>
+                        <span *ngIf="validatorArray.phone.errors.maxlength">Supero el maximo de caracteres</span>
+                        <span *ngIf="validatorArray.phone.errors.minlength">No cuenta con el minimo de caracteres</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center my-2">
+            <button type="reset" (click)="onReset()" class="btn btn-outline-danger mx-4">Limpiar</button>    
+            <button type="submit" class="btn btn-outline-primary mx-4">Crear Shipper</button>    
+        </div>
+        <div *ngIf="error">
+            <p class="text-danger text-center">Hubo un error al crear el Shipper, intentelo nuevamente</p>
+        </div>
+    </form>
+

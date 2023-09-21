@@ -47,6 +47,7 @@ namespace Practica3.Logic
                 {
 
                     shippersUpdate.CompanyName = shippers.CompanyName;
+                    shippersUpdate.Phone = shippers.Phone;
                     context.SaveChanges();
                 }
                 else
